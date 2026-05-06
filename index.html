@@ -30,6 +30,9 @@ header {
   position: sticky; top: 0; z-index: 100;
 }
 header h1 { font-size: 18px; font-weight: 600; }
+.header-clock { margin-left: auto; text-align: right; }
+.header-clock .htime { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; color: var(--text); }
+.header-clock .hdate { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
 .layout { display: flex; min-height: calc(100vh - 57px); }
 
@@ -50,24 +53,21 @@ nav button:hover { background: var(--surface2); color: var(--text); }
 nav button.active { background: var(--accent); color: #fff; }
 
 main { flex: 1; padding: 28px; }
-
 .panel { display: none; max-width: 820px; }
 .panel.active { display: block; }
-
 .panel-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
 .panel-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
 
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
 
 label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; font-weight: 500; }
-input[type=text], input[type=number], input[type=date], textarea, select {
+input[type=text], input[type=number], input[type=date], input[type=password], textarea, select {
   width: 100%; padding: 9px 13px; font-size: 14px; font-family: 'DM Sans', sans-serif;
   border: 1px solid var(--border); border-radius: var(--rsm);
   background: var(--bg); color: var(--text); transition: border-color 0.15s;
 }
 input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
 textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
-
 .row { display: flex; gap: 12px; flex-wrap: wrap; }
 .col { flex: 1; min-width: 100px; display: flex; flex-direction: column; gap: 5px; }
 
@@ -84,16 +84,14 @@ button.btn.sm { padding: 6px 13px; font-size: 13px; }
 
 .result { background: var(--bg); border: 1px solid var(--border); border-radius: var(--rsm); padding: 13px 16px; font-size: 14px; line-height: 1.6; margin-top: 12px; min-height: 44px; }
 .divider { height: 1px; background: var(--border); margin: 16px 0; }
-
-.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-
+.grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
 .stat { background: var(--surface2); border-radius: var(--rsm); padding: 14px; text-align: center; }
 .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
 .stat-val { font-size: 22px; font-weight: 600; }
 
 /* CALC */
-.calc-display { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; text-align: right; padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--rsm); margin-bottom: 10px; min-height: 56px; }
+.calc-display { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; text-align: right; padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--rsm); margin-bottom: 10px; min-height: 56px; letter-spacing: 1px; }
 .calc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
 .cbtn { padding: 14px; border: 1px solid var(--border); background: var(--surface); border-radius: var(--rsm); font-size: 16px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.12s; font-weight: 500; }
 .cbtn:hover { background: var(--surface2); }
@@ -103,8 +101,9 @@ button.btn.sm { padding: 6px 13px; font-size: 13px; }
 .cbtn.wide2 { grid-column: span 2; }
 
 /* CLOCK */
-.clock-big { font-family: 'DM Mono', monospace; font-size: 52px; font-weight: 400; letter-spacing: 3px; text-align: center; padding: 10px 0 4px; }
-.clock-date { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+.clock-big { font-family: 'DM Mono', monospace; font-size: 64px; font-weight: 300; letter-spacing: 4px; text-align: center; padding: 16px 0 6px; color: var(--text); }
+.clock-date-big { text-align: center; color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+.clock-seconds { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
 
 /* PASSWORD */
 .pass-bar { height: 6px; border-radius: 99px; background: var(--border); overflow: hidden; margin-top: 6px; }
@@ -115,31 +114,39 @@ button.btn.sm { padding: 6px 13px; font-size: 13px; }
 .todo-item:last-child { border-bottom: none; }
 .todo-done { text-decoration: line-through; color: var(--muted); }
 .todo-del { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 16px; padding: 2px 6px; border-radius: 4px; }
-.todo-del:hover { color: var(--danger); background: #fde8e8; }
+.todo-del:hover { color: var(--danger); }
 
-/* FPS */
-.big-gauge { font-size: 52px; font-weight: 600; letter-spacing: -2px; line-height: 1; text-align: center; padding: 8px 0; }
-.gauge-tag { display: inline-block; font-size: 12px; padding: 3px 12px; border-radius: 99px; font-weight: 500; margin-top: 4px; }
+/* FPS + NET */
+.big-gauge { font-size: 58px; font-weight: 600; letter-spacing: -2px; line-height: 1; text-align: center; padding: 10px 0; font-family: 'DM Mono', monospace; }
+.gauge-tag { display: inline-block; font-size: 12px; padding: 3px 12px; border-radius: 99px; font-weight: 500; }
 .g-good { background: #d4edda; color: #1b5e20; }
 .g-mid  { background: #fff3cd; color: #7b5800; }
 .g-bad  { background: #fde8e8; color: #7f1d1d; }
 .g-idle { background: var(--surface2); color: var(--muted); }
 
+/* FPS bar */
+.fps-bar-wrap { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; margin: 10px 0 4px; }
+.fps-bar-fill { height: 100%; border-radius: 99px; transition: width 0.2s, background 0.2s; }
+
 /* AI SEARCH */
-.ai-card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s; }
-.ai-card:hover { border-color: var(--accent); }
+.ai-card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 10px; transition: border-color 0.15s, box-shadow 0.15s; }
+.ai-card:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
 .ai-card.best { border: 2px solid var(--accent); }
 .best-badge { display: inline-block; font-size: 11px; background: var(--accent); color: #fff; padding: 2px 10px; border-radius: 99px; margin-bottom: 8px; font-weight: 500; }
 .ai-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
 .ai-url { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
 .ai-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-.api-warn { background: #fff8e6; border: 1px solid #f0d080; border-radius: var(--rsm); padding: 12px 15px; font-size: 13px; margin-bottom: 14px; color: #7b5800; line-height: 1.6; }
 input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
 .mono { font-family: 'DM Mono', monospace; }
-
 @keyframes spin { to { transform: rotate(360deg); } }
-.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+
+/* Ping dots */
+.ping-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.ping-good { background: #2e7d4f; }
+.ping-mid  { background: #b8860b; }
+.ping-bad  { background: #c0392b; }
 </style>
 </head>
 <body>
@@ -147,35 +154,31 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
 <header>
   <span style="font-size:22px;">🧰</span>
   <h1>Caja de Herramientas</h1>
-  <span style="margin-left:auto; font-size:12px; color:var(--muted);">Todo en un lugar</span>
+  <div class="header-clock">
+    <div class="htime" id="headerTime">--:--:--</div>
+    <div class="hdate" id="headerDate"></div>
+  </div>
 </header>
 
 <div class="layout">
-
-  <!-- NAVEGACIÓN -->
   <nav>
     <div class="nav-section">Sistema</div>
     <button id="tab-fps"      onclick="show('fps')">      📊 FPS + Internet</button>
-
     <div class="nav-section">Productividad</div>
     <button id="tab-calc"     onclick="show('calc')">     🧮 Calculadora</button>
     <button id="tab-clock"    onclick="show('clock')">    🕐 Reloj / Fechas</button>
     <button id="tab-todo"     onclick="show('todo')">     ✅ Tareas</button>
-
     <div class="nav-section">Texto</div>
     <button id="tab-text"     onclick="show('text')">     📝 Analizador</button>
     <button id="tab-convert"  onclick="show('convert')">  🔄 Convertidor</button>
-
     <div class="nav-section">Utilidades</div>
     <button id="tab-color"    onclick="show('color')">    🎨 Colores</button>
     <button id="tab-pass"     onclick="show('pass')">     🔒 Contraseñas</button>
     <button id="tab-bmi"      onclick="show('bmi')">      ⚖️ IMC / Salud</button>
-
     <div class="nav-section">Buscar</div>
-    <button id="tab-aisearch" onclick="show('aisearch')"> 🤖 Buscador AI</button>
+    <button id="tab-aisearch" onclick="show('aisearch')"> 🔍 Buscador</button>
   </nav>
 
-  <!-- PANELES -->
   <main>
 
     <!-- ====== FPS + INTERNET ====== -->
@@ -185,35 +188,49 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
 
       <div class="grid2" style="margin-bottom:16px;">
         <div class="card" style="text-align:center;">
-          <div style="font-size:11px;font-weight:600;letter-spacing:0.5px;color:var(--muted);margin-bottom:10px;">FOTOGRAMAS POR SEGUNDO</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;color:var(--muted);margin-bottom:6px;">FOTOGRAMAS POR SEGUNDO</div>
           <div class="big-gauge" id="fpsNum" style="color:var(--accent);">--</div>
-          <div style="font-size:13px;color:var(--muted);margin:4px 0 8px;">FPS</div>
-          <span class="gauge-tag g-idle" id="fpsStatus">Midiendo...</span>
+          <div class="fps-bar-wrap"><div class="fps-bar-fill" id="fpsBar" style="width:0%;background:var(--accent);"></div></div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">de 60 FPS</div>
+          <span class="gauge-tag g-idle" id="fpsStatus">Iniciando...</span>
           <div class="divider"></div>
           <div class="grid3" style="gap:8px;">
-            <div><div style="font-size:11px;color:var(--muted);">Mín</div><div style="font-weight:600;" id="fpsMin">--</div></div>
-            <div><div style="font-size:11px;color:var(--muted);">Prom</div><div style="font-weight:600;" id="fpsAvg">--</div></div>
-            <div><div style="font-size:11px;color:var(--muted);">Máx</div><div style="font-weight:600;" id="fpsMax">--</div></div>
+            <div><div style="font-size:11px;color:var(--muted);">Mín</div><div style="font-weight:600;font-size:15px;" id="fpsMin">--</div></div>
+            <div><div style="font-size:11px;color:var(--muted);">Prom</div><div style="font-weight:600;font-size:15px;" id="fpsAvg">--</div></div>
+            <div><div style="font-size:11px;color:var(--muted);">Máx</div><div style="font-weight:600;font-size:15px;" id="fpsMax">--</div></div>
           </div>
         </div>
 
         <div class="card" style="text-align:center;">
-          <div style="font-size:11px;font-weight:600;letter-spacing:0.5px;color:var(--muted);margin-bottom:10px;">VELOCIDAD DE INTERNET</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;color:var(--muted);margin-bottom:6px;">VELOCIDAD DE INTERNET</div>
           <div class="big-gauge" id="netNum" style="color:var(--accent3);">--</div>
-          <div style="font-size:13px;color:var(--muted);margin:4px 0 8px;" id="netUnit">Mbps</div>
-          <span class="gauge-tag g-idle" id="netStatus">Listo para medir</span>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:10px;" id="netUnit">Mbps</div>
+          <span class="gauge-tag g-idle" id="netStatus">Presioná medir</span>
           <div class="divider"></div>
           <button class="btn primary" onclick="testSpeed()" id="speedBtn" style="width:100%;">▶ Medir velocidad</button>
-          <div style="font-size:11px;color:var(--muted);margin-top:8px;" id="speedNote">Tarda ~5 segundos</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:8px;" id="speedNote">Descarga un archivo de prueba</div>
         </div>
       </div>
 
       <div class="card">
-        <div style="font-size:13px;font-weight:600;margin-bottom:12px;">📡 Info de conexión</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:14px;">📡 Información de conexión</div>
         <div class="grid3" style="gap:10px;">
-          <div class="stat"><div class="stat-label">Tipo</div><div class="stat-val" id="connType" style="font-size:15px;">--</div></div>
-          <div class="stat"><div class="stat-label">Latencia</div><div class="stat-val" id="connRtt">-- ms</div></div>
-          <div class="stat"><div class="stat-label">Calidad</div><div class="stat-val" id="connEff" style="font-size:15px;">--</div></div>
+          <div class="stat">
+            <div class="stat-label">Tipo de red</div>
+            <div class="stat-val" id="connType" style="font-size:15px;">--</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Latencia (RTT)</div>
+            <div class="stat-val" id="connRtt" style="font-size:18px;">-- ms</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Calidad efectiva</div>
+            <div class="stat-val" id="connEff" style="font-size:15px;">--</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+          <span class="ping-dot" id="pingDot" style="background:var(--muted);"></span>
+          <span id="pingMsg">Verificando conexión...</span>
         </div>
       </div>
     </div>
@@ -228,36 +245,33 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
           <button class="cbtn op wide2" onclick="calcClear()">C</button>
           <button class="cbtn op" onclick="calcOp('/')">÷</button>
           <button class="cbtn op" onclick="calcOp('*')">×</button>
-
           <button class="cbtn" onclick="calcNum('7')">7</button>
           <button class="cbtn" onclick="calcNum('8')">8</button>
           <button class="cbtn" onclick="calcNum('9')">9</button>
           <button class="cbtn op" onclick="calcOp('-')">−</button>
-
           <button class="cbtn" onclick="calcNum('4')">4</button>
           <button class="cbtn" onclick="calcNum('5')">5</button>
           <button class="cbtn" onclick="calcNum('6')">6</button>
           <button class="cbtn op" onclick="calcOp('+')">+</button>
-
           <button class="cbtn" onclick="calcNum('1')">1</button>
           <button class="cbtn" onclick="calcNum('2')">2</button>
           <button class="cbtn" onclick="calcNum('3')">3</button>
           <button class="cbtn eq" onclick="calcEquals()">=</button>
-
           <button class="cbtn wide2" onclick="calcNum('0')">0</button>
           <button class="cbtn" onclick="calcNum('.')">.</button>
         </div>
-        <div id="calcHist" style="margin-top:12px;font-size:12px;color:var(--muted);max-height:80px;overflow-y:auto;"></div>
+        <div id="calcHist" style="margin-top:12px;font-size:12px;color:var(--muted);max-height:80px;overflow-y:auto;line-height:1.8;"></div>
       </div>
     </div>
 
     <!-- ====== RELOJ ====== -->
     <div id="clock" class="panel">
       <div class="panel-title">🕐 Reloj y fechas</div>
-      <div class="panel-sub">Hora actual y calculadora de fechas</div>
+      <div class="panel-sub">Hora actual de Argentina y calculadora de fechas</div>
       <div class="card">
         <div class="clock-big" id="clockDisplay">--:--:--</div>
-        <div class="clock-date" id="clockDate"></div>
+        <div class="clock-date-big" id="clockDate"></div>
+        <div class="clock-seconds" id="clockExtra"></div>
         <div class="divider"></div>
         <div style="font-weight:600;font-size:13px;margin-bottom:10px;">Diferencia entre dos fechas</div>
         <div class="row">
@@ -268,8 +282,8 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
         <div class="divider"></div>
         <div style="font-weight:600;font-size:13px;margin-bottom:10px;">Sumar días a una fecha</div>
         <div class="row">
-          <div class="col"><label>Fecha base</label><input type="date" id="dateBase" oninput="addDays()"></div>
-          <div class="col"><label>Días a sumar</label><input type="number" id="daysAdd" value="30" oninput="addDays()"></div>
+          <div class="col"><label>Fecha base</label><input type="date" id="dateBase" oninput="addDaysCalc()"></div>
+          <div class="col"><label>Días a sumar</label><input type="number" id="daysAdd" value="30" oninput="addDaysCalc()"></div>
         </div>
         <div class="result" id="addResult">Completá los campos.</div>
       </div>
@@ -369,12 +383,12 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
           <input type="range" min="6" max="64" value="16" id="passLen" step="1" oninput="document.getElementById('lenVal').textContent=this.value; genPass()">
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;font-size:14px;">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" id="useUpper" checked> Mayúsculas A–Z</label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" id="useLower" checked> Minúsculas a–z</label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" id="useNums" checked> Números 0–9</label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" id="useSym"> Símbolos !@#</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--text);"><input type="checkbox" id="useUpper" checked> Mayúsculas A–Z</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--text);"><input type="checkbox" id="useLower" checked> Minúsculas a–z</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--text);"><input type="checkbox" id="useNums" checked> Números 0–9</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--text);"><input type="checkbox" id="useSym"> Símbolos !@#</label>
         </div>
-        <div class="result mono" id="passOut" style="font-size:16px;letter-spacing:1.5px;word-break:break-all;"></div>
+        <div class="result mono" id="passOut" style="font-size:16px;letter-spacing:1.5px;word-break:break-all;min-height:52px;"></div>
         <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
           <div style="flex:1;">
             <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Fortaleza</div>
@@ -400,37 +414,55 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
         </div>
         <div class="result" id="bmiResult" style="text-align:center;"></div>
         <div class="divider"></div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.8;">
-          <b>Referencia:</b><br>
+        <div style="font-size:13px;color:var(--muted);line-height:2;">
           &lt; 18.5 → Bajo peso &nbsp;|&nbsp; 18.5 – 24.9 → Normal ✓ &nbsp;|&nbsp; 25 – 29.9 → Sobrepeso &nbsp;|&nbsp; ≥ 30 → Obesidad
         </div>
       </div>
     </div>
 
-    <!-- ====== BUSCADOR AI ====== -->
+    <!-- ====== BUSCADOR MÚLTIPLE ====== -->
     <div id="aisearch" class="panel">
-      <div class="panel-title">🤖 Buscador AI</div>
-      <div class="panel-sub">La IA recomienda las mejores páginas web para lo que necesitás</div>
-
-      <div class="api-warn">
-        ⚠️ <b>Necesitás una API Key de Anthropic</b> para usar esta función.<br>
-        Conseguila gratis en <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent);">console.anthropic.com</a> → API Keys.<br>
-        Tu clave se guarda solo en este navegador, nunca en ningún servidor.
-      </div>
-
+      <div class="panel-title">🔍 Buscador</div>
+      <div class="panel-sub">Buscá en Google, YouTube, Wikipedia, GitHub y más — todo gratis, sin cuenta</div>
       <div class="card">
-        <div class="col" style="margin-bottom:12px;">
-          <label>Tu API Key (empieza con sk-ant-...)</label>
-          <input type="password" id="apiKey" placeholder="sk-ant-api03-..." class="mono" style="font-size:13px;">
-        </div>
         <div class="col" style="margin-bottom:14px;">
-          <label>¿Qué querés buscar? (ej: "recetas de comidas argentinas")</label>
-          <input type="text" id="searchQuery" placeholder="Escribí tu búsqueda..." onkeydown="if(event.key==='Enter')doAISearch()">
+          <label>¿Qué querés buscar?</label>
+          <input type="text" id="searchQuery" placeholder="Ej: recetas de milanesas, tutoriales de dibujo, noticias..." onkeydown="if(event.key==='Enter')doSearch()">
         </div>
-        <button class="btn primary" onclick="doAISearch()" id="searchBtn" style="width:100%;padding:11px;">🔍 Buscar con AI</button>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+          <button class="btn" onclick="openSearch('google')"    style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://www.google.com/favicon.ico" width="16" height="16" style="border-radius:2px;"> Google
+          </button>
+          <button class="btn" onclick="openSearch('youtube')"   style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://www.youtube.com/favicon.ico" width="16" height="16" style="border-radius:2px;"> YouTube
+          </button>
+          <button class="btn" onclick="openSearch('wikipedia')" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://www.wikipedia.org/favicon.ico" width="16" height="16" style="border-radius:2px;"> Wikipedia
+          </button>
+          <button class="btn" onclick="openSearch('github')"    style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://github.com/favicon.ico" width="16" height="16" style="border-radius:2px;"> GitHub
+          </button>
+          <button class="btn" onclick="openSearch('mercadolibre')" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://www.mercadolibre.com.ar/favicon.ico" width="16" height="16" style="border-radius:2px;"> MercadoLibre
+          </button>
+          <button class="btn" onclick="openSearch('maps')"      style="display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;">
+            <img src="https://maps.google.com/favicon.ico" width="16" height="16" style="border-radius:2px;"> Maps
+          </button>
+        </div>
+        <button class="btn primary" onclick="doSearch()" style="width:100%;padding:11px;font-size:15px;">🔍 Buscar en todos</button>
       </div>
 
-      <div id="searchResults"></div>
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--muted);">BÚSQUEDAS RÁPIDAS</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button class="btn sm" onclick="quickSearch('recetas de comida argentina')">🍖 Recetas argentinas</button>
+          <button class="btn sm" onclick="quickSearch('noticias de hoy argentina')">📰 Noticias hoy</button>
+          <button class="btn sm" onclick="quickSearch('tutorial programacion para principiantes')">💻 Aprender a programar</button>
+          <button class="btn sm" onclick="quickSearch('musica para estudiar')">🎵 Música para estudiar</button>
+          <button class="btn sm" onclick="quickSearch('ejercicios en casa sin equipamiento')">🏃 Ejercicios en casa</button>
+          <button class="btn sm" onclick="quickSearch('peliculas recomendadas 2025')">🎬 Películas 2025</button>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -438,9 +470,45 @@ input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
 
 <script>
 // ============================================================
+// BUSCADOR MÚLTIPLE
+// ============================================================
+var SEARCH_URLS = {
+  google:      'https://www.google.com/search?q=',
+  youtube:     'https://www.youtube.com/results?search_query=',
+  wikipedia:   'https://es.wikipedia.org/w/index.php?search=',
+  github:      'https://github.com/search?q=',
+  mercadolibre:'https://listado.mercadolibre.com.ar/',
+  maps:        'https://www.google.com/maps/search/'
+};
+
+function getQuery() {
+  return document.getElementById('searchQuery').value.trim();
+}
+
+function openSearch(engine) {
+  var q = getQuery();
+  if (!q) { document.getElementById('searchQuery').focus(); return; }
+  window.open(SEARCH_URLS[engine] + encodeURIComponent(q), '_blank');
+}
+
+function doSearch() {
+  var q = getQuery();
+  if (!q) { document.getElementById('searchQuery').focus(); return; }
+  // Abre Google, YouTube y Wikipedia al mismo tiempo
+  ['google','youtube','wikipedia'].forEach(function(e) {
+    window.open(SEARCH_URLS[e] + encodeURIComponent(q), '_blank');
+  });
+}
+
+function quickSearch(term) {
+  document.getElementById('searchQuery').value = term;
+  window.open(SEARCH_URLS['google'] + encodeURIComponent(term), '_blank');
+}
+
+// ============================================================
 // NAVEGACIÓN
 // ============================================================
-const ALL_PANELS = ['fps','calc','clock','todo','text','convert','color','pass','bmi','aisearch'];
+var ALL_PANELS = ['fps','calc','clock','todo','text','convert','color','pass','bmi','aisearch'];
 
 function show(id) {
   ALL_PANELS.forEach(function(p) {
@@ -450,89 +518,178 @@ function show(id) {
     if (tab)   tab.classList.toggle('active',   p === id);
   });
 }
-
-// Mostrar FPS por defecto al cargar
 show('fps');
 
 // ============================================================
-// FPS
+// RELOJ — Header + panel, actualiza cada segundo
 // ============================================================
-var fpsValues = [];
-var fpsLast   = performance.now();
+var DAYS   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-function fpsTick() {
-  var now   = performance.now();
-  var delta = now - fpsLast;
-  fpsLast   = now;
-  var fps   = Math.round(1000 / delta);
-  if (fps > 0 && fps < 500) {
-    fpsValues.push(fps);
-    if (fpsValues.length > 60) fpsValues.shift();
+function pad(n) { return String(n).padStart(2,'0'); }
+
+function updateAllClocks() {
+  var now = new Date();
+  var h = pad(now.getHours());
+  var m = pad(now.getMinutes());
+  var s = pad(now.getSeconds());
+  var timeStr = h + ':' + m + ':' + s;
+  var dateStr = DAYS[now.getDay()] + ', ' + now.getDate() + ' de ' + MONTHS[now.getMonth()] + ' de ' + now.getFullYear();
+
+  // Header
+  var ht = document.getElementById('headerTime');
+  var hd = document.getElementById('headerDate');
+  if (ht) ht.textContent = timeStr;
+  if (hd) hd.textContent = dateStr;
+
+  // Panel reloj
+  var cd = document.getElementById('clockDisplay');
+  var cdate = document.getElementById('clockDate');
+  var cextra = document.getElementById('clockExtra');
+  if (cd) cd.textContent = timeStr;
+  if (cdate) cdate.textContent = dateStr;
+  if (cextra) {
+    var weekNum = Math.ceil((now.getDate() + new Date(now.getFullYear(), now.getMonth(), 1).getDay()) / 7);
+    cextra.textContent = 'Semana ' + weekNum + ' del año · Día ' + Math.floor((now - new Date(now.getFullYear(),0,0)) / 86400000) + ' del año';
   }
-  var cur = fpsValues[fpsValues.length - 1] || 0;
-  var avg = fpsValues.length ? Math.round(fpsValues.reduce(function(a,b){return a+b;},0)/fpsValues.length) : 0;
-  var min = fpsValues.length ? Math.min.apply(null, fpsValues) : 0;
-  var max = fpsValues.length ? Math.max.apply(null, fpsValues) : 0;
+}
+setInterval(updateAllClocks, 1000);
+updateAllClocks();
+
+function calcDiff() {
+  var d1v = document.getElementById('d1').value;
+  var d2v = document.getElementById('d2').value;
+  if (!d1v || !d2v) return;
+  var d1 = new Date(d1v), d2 = new Date(d2v);
+  var days   = Math.abs(Math.round((d2 - d1) / 86400000));
+  var years  = Math.floor(days / 365);
+  var months = Math.floor((days % 365) / 30);
+  var rem    = days % 30;
+  document.getElementById('diffResult').textContent = years + ' años, ' + months + ' meses, ' + rem + ' días (' + days + ' días en total)';
+}
+
+function addDaysCalc() {
+  var baseVal = document.getElementById('dateBase').value;
+  var n = parseInt(document.getElementById('daysAdd').value);
+  if (!baseVal || isNaN(n)) return;
+  var base = new Date(baseVal);
+  base.setDate(base.getDate() + n);
+  document.getElementById('addResult').textContent = DAYS[base.getDay()] + ', ' + base.getDate() + ' de ' + MONTHS[base.getMonth()] + ' de ' + base.getFullYear();
+}
+
+// ============================================================
+// FPS — medición precisa con rolling average
+// ============================================================
+var fpsBuffer  = [];
+var fpsLast    = performance.now();
+var fpsCurrent = 0;
+
+function fpsTick(now) {
+  var delta = now - fpsLast;
+  fpsLast = now;
+  if (delta > 0 && delta < 200) {
+    var fps = Math.round(1000 / delta);
+    fpsBuffer.push(fps);
+    if (fpsBuffer.length > 90) fpsBuffer.shift();
+    fpsCurrent = fps;
+  }
+  requestAnimationFrame(fpsTick);
+}
+requestAnimationFrame(fpsTick);
+
+// Actualizar UI cada 500ms para no parpadear
+setInterval(function() {
+  if (!fpsBuffer.length) return;
+  var cur = fpsCurrent;
+  var avg = Math.round(fpsBuffer.reduce(function(a,b){return a+b;},0) / fpsBuffer.length);
+  var min = Math.min.apply(null, fpsBuffer);
+  var max = Math.max.apply(null, fpsBuffer);
 
   document.getElementById('fpsNum').textContent = cur;
   document.getElementById('fpsAvg').textContent = avg;
   document.getElementById('fpsMin').textContent = min;
   document.getElementById('fpsMax').textContent = max;
 
+  var pct = Math.min(100, Math.round((cur / 60) * 100));
+  var bar = document.getElementById('fpsBar');
+  bar.style.width = pct + '%';
+
   var st = document.getElementById('fpsStatus');
-  if (cur >= 55)      { st.textContent = '✓ Excelente'; st.className = 'gauge-tag g-good'; }
-  else if (cur >= 30) { st.textContent = '~ Aceptable'; st.className = 'gauge-tag g-mid'; }
-  else                { st.textContent = '✗ Bajo';      st.className = 'gauge-tag g-bad'; }
+  if (cur >= 55)      { st.textContent = '✓ Excelente';  st.className = 'gauge-tag g-good'; bar.style.background = '#2e7d4f'; }
+  else if (cur >= 30) { st.textContent = '~ Aceptable';  st.className = 'gauge-tag g-mid';  bar.style.background = '#b8860b'; }
+  else                { st.textContent = '✗ Bajo';       st.className = 'gauge-tag g-bad';  bar.style.background = '#c0392b'; }
+}, 500);
 
-  requestAnimationFrame(fpsTick);
-}
-requestAnimationFrame(fpsTick);
-
-// Info de red
+// ============================================================
+// INFO DE CONEXIÓN
+// ============================================================
 function updateNetInfo() {
   var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   if (conn) {
-    document.getElementById('connType').textContent = conn.type || conn.effectiveType || '--';
+    document.getElementById('connType').textContent = conn.type || 'WiFi/Cable';
     document.getElementById('connRtt').textContent  = (conn.rtt != null ? conn.rtt : '--') + ' ms';
-    document.getElementById('connEff').textContent  = conn.effectiveType || '--';
+    var eff = conn.effectiveType || '--';
+    document.getElementById('connEff').textContent  = eff;
   } else {
-    document.getElementById('connType').textContent = 'N/D';
-    document.getElementById('connRtt').textContent  = 'N/D';
-    document.getElementById('connEff').textContent  = 'N/D';
+    document.getElementById('connType').textContent = 'Conectado';
+    document.getElementById('connRtt').textContent  = '-- ms';
+    document.getElementById('connEff').textContent  = '--';
   }
+  // Ping check
+  var start = performance.now();
+  fetch('https://www.google.com/favicon.ico?_=' + Date.now(), {mode:'no-cors', cache:'no-store'})
+    .then(function() {
+      var ping = Math.round(performance.now() - start);
+      var dot  = document.getElementById('pingDot');
+      var msg  = document.getElementById('pingMsg');
+      msg.textContent = 'Conectado · Ping aprox. ' + ping + ' ms';
+      if      (ping < 80)  { dot.className = 'ping-dot ping-good'; }
+      else if (ping < 200) { dot.className = 'ping-dot ping-mid'; }
+      else                 { dot.className = 'ping-dot ping-bad'; }
+    })
+    .catch(function() {
+      document.getElementById('pingMsg').textContent = 'Sin conexión a internet';
+      document.getElementById('pingDot').className = 'ping-dot ping-bad';
+    });
 }
 updateNetInfo();
+setInterval(updateNetInfo, 10000);
 
 function testSpeed() {
   var btn  = document.getElementById('speedBtn');
   var note = document.getElementById('speedNote');
   var num  = document.getElementById('netNum');
   var st   = document.getElementById('netStatus');
+  var unit = document.getElementById('netUnit');
+
   btn.disabled = true;
-  btn.textContent = '⏳ Midiendo...';
+  btn.innerHTML = '<span class="spinner"></span> Midiendo...';
   note.textContent = 'Descargando archivo de prueba...';
-  num.textContent = '...';
-  var url = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg?_=' + Date.now();
-  var start = performance.now();
-  fetch(url, {cache: 'no-store'})
-    .then(function(r){ return r.blob(); })
-    .then(function(blob){
-      var secs = (performance.now() - start) / 1000;
-      var mbps = parseFloat(((blob.size * 8) / secs / 1000000).toFixed(1));
-      num.textContent = mbps;
-      document.getElementById('netUnit').textContent = 'Mbps descarga';
-      if (mbps >= 25)     { st.textContent = '✓ Rápida'; st.className = 'gauge-tag g-good'; }
-      else if (mbps >= 5) { st.textContent = '~ Normal'; st.className = 'gauge-tag g-mid'; }
-      else                { st.textContent = '✗ Lenta';  st.className = 'gauge-tag g-bad'; }
-      note.textContent = 'Medición completada';
+  num.textContent  = '...';
+
+  // Usamos una imagen pública grande de Wikipedia para medir
+  var testUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Biketoworkday.svg';
+  var t0 = performance.now();
+
+  fetch(testUrl + '?nocache=' + Date.now(), { cache: 'no-store' })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var secs = (performance.now() - t0) / 1000;
+      var mbps = parseFloat(((blob.size * 8) / secs / 1000000).toFixed(2));
+      num.textContent  = mbps;
+      unit.textContent = 'Mbps de descarga';
+      note.textContent = 'Archivo: ' + Math.round(blob.size / 1024) + ' KB en ' + secs.toFixed(1) + 's';
+      if      (mbps >= 25) { st.textContent = '✓ Rápida';  st.className = 'gauge-tag g-good'; }
+      else if (mbps >= 5)  { st.textContent = '~ Normal';  st.className = 'gauge-tag g-mid';  }
+      else                 { st.textContent = '✗ Lenta';   st.className = 'gauge-tag g-bad';  }
     })
-    .catch(function(){
-      num.textContent = '?';
-      st.textContent = 'Error'; st.className = 'gauge-tag g-bad';
-      note.textContent = 'No se pudo medir';
+    .catch(function(e) {
+      num.textContent  = '?';
+      note.textContent = 'No se pudo medir. Intentá de nuevo.';
+      st.textContent   = 'Error'; st.className = 'gauge-tag g-bad';
     })
-    .finally(function(){
-      btn.disabled = false;
+    .finally(function() {
+      btn.disabled    = false;
       btn.textContent = '▶ Medir de nuevo';
     });
 }
@@ -540,8 +697,7 @@ function testSpeed() {
 // ============================================================
 // CALCULADORA
 // ============================================================
-var calcExpr  = '';
-var justCalc  = false;
+var calcExpr = '', justCalc = false;
 
 function calcNum(n) {
   if (justCalc && n !== '.') { calcExpr = ''; justCalc = false; }
@@ -550,18 +706,17 @@ function calcNum(n) {
 }
 function calcOp(op) {
   justCalc = false;
-  if (calcExpr && '+-*/'.indexOf(calcExpr.slice(-1)) !== -1) calcExpr = calcExpr.slice(0, -1);
+  if (calcExpr && '+-*/'.indexOf(calcExpr.slice(-1)) !== -1) calcExpr = calcExpr.slice(0,-1);
   calcExpr += op;
   document.getElementById('calcDisplay').textContent = calcExpr;
 }
 function calcEquals() {
   try {
-    var res = parseFloat(Function('"use strict";return(' + calcExpr + ')')().toFixed(10));
+    var res  = parseFloat(Function('"use strict";return(' + calcExpr + ')')().toFixed(10));
     var hist = document.getElementById('calcHist');
-    hist.innerHTML = calcExpr + ' = ' + res + '<br>' + hist.innerHTML;
+    hist.innerHTML = calcExpr + ' = <b>' + res + '</b><br>' + hist.innerHTML;
     document.getElementById('calcDisplay').textContent = res;
-    calcExpr = String(res);
-    justCalc = true;
+    calcExpr = String(res); justCalc = true;
   } catch(e) {
     document.getElementById('calcDisplay').textContent = 'Error';
     calcExpr = '';
@@ -574,44 +729,9 @@ function calcClear() {
 }
 
 // ============================================================
-// RELOJ
-// ============================================================
-function pad(n){ return String(n).padStart(2,'0'); }
-
-function updateClock() {
-  var now    = new Date();
-  document.getElementById('clockDisplay').textContent = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
-  var days   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  document.getElementById('clockDate').textContent = days[now.getDay()] + ', ' + now.getDate() + ' de ' + months[now.getMonth()] + ' de ' + now.getFullYear();
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-function calcDiff() {
-  var d1 = new Date(document.getElementById('d1').value);
-  var d2 = new Date(document.getElementById('d2').value);
-  if (isNaN(d1) || isNaN(d2)) return;
-  var days   = Math.abs(Math.round((d2 - d1) / 86400000));
-  var years  = Math.floor(days / 365);
-  var months = Math.floor((days % 365) / 30);
-  var rem    = days % 30;
-  document.getElementById('diffResult').textContent = years + ' años, ' + months + ' meses, ' + rem + ' días (' + days + ' días en total)';
-}
-
-function addDays() {
-  var base = new Date(document.getElementById('dateBase').value);
-  var n    = parseInt(document.getElementById('daysAdd').value);
-  if (isNaN(base) || isNaN(n)) return;
-  base.setDate(base.getDate() + n);
-  document.getElementById('addResult').textContent = base.toLocaleDateString('es-AR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
-}
-
-// ============================================================
 // TAREAS
 // ============================================================
 var todos = [];
-
 function addTodo() {
   var inp  = document.getElementById('todoIn');
   var prio = document.getElementById('todoPrio').value;
@@ -622,34 +742,28 @@ function addTodo() {
   renderTodos();
 }
 function toggleTodo(id) {
-  var t = todos.find(function(x){ return x.id === id; });
+  var t = todos.find(function(x){ return x.id===id; });
   if (t) t.done = !t.done;
   renderTodos();
 }
 function deleteTodo(id) {
-  todos = todos.filter(function(x){ return x.id !== id; });
+  todos = todos.filter(function(x){ return x.id!==id; });
   renderTodos();
 }
 function renderTodos() {
   var list  = document.getElementById('todoList');
   var empty = document.getElementById('todoEmpty');
   var stats = document.getElementById('todoStats');
-  if (!todos.length) {
-    list.innerHTML = '';
-    empty.style.display = '';
-    stats.style.display = 'none';
-    return;
-  }
-  empty.style.display = 'none';
-  stats.style.display = '';
+  if (!todos.length) { list.innerHTML=''; empty.style.display=''; stats.style.display='none'; return; }
+  empty.style.display = 'none'; stats.style.display = '';
   var done = todos.filter(function(x){ return x.done; }).length;
   stats.textContent = done + ' de ' + todos.length + ' completadas';
-  var icons = { alta: '⚡', baja: '🔵', normal: '' };
-  list.innerHTML = todos.map(function(t){
+  var icons = { alta:'⚡', baja:'🔵', normal:'' };
+  list.innerHTML = todos.map(function(t) {
     return '<div class="todo-item">' +
-      '<input type="checkbox"' + (t.done ? ' checked' : '') + ' onchange="toggleTodo(' + t.id + ')" style="cursor:pointer;width:16px;height:16px;">' +
-      '<span class="' + (t.done ? 'todo-done' : '') + '" style="flex:1;font-size:14px;">' + icons[t.prio] + ' ' + t.text + '</span>' +
-      '<button class="todo-del" onclick="deleteTodo(' + t.id + ')" title="Eliminar">✕</button>' +
+      '<input type="checkbox"' + (t.done?' checked':'') + ' onchange="toggleTodo('+t.id+')" style="cursor:pointer;width:16px;height:16px;">' +
+      '<span class="'+(t.done?'todo-done':'')+'" style="flex:1;font-size:14px;">' + icons[t.prio] + ' ' + t.text + '</span>' +
+      '<button class="todo-del" onclick="deleteTodo('+t.id+')" title="Eliminar">✕</button>' +
       '</div>';
   }).join('');
 }
@@ -665,16 +779,14 @@ function analyzeText() {
 }
 function transformText(type) {
   var el = document.getElementById('textIn');
-  if      (type === 'upper')   el.value = el.value.toUpperCase();
-  else if (type === 'lower')   el.value = el.value.toLowerCase();
-  else if (type === 'title')   el.value = el.value.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
-  else if (type === 'trim')    el.value = el.value.replace(/\s+/g,' ').trim();
-  else if (type === 'reverse') el.value = el.value.split('').reverse().join('');
+  if      (type==='upper')   el.value = el.value.toUpperCase();
+  else if (type==='lower')   el.value = el.value.toLowerCase();
+  else if (type==='title')   el.value = el.value.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+  else if (type==='trim')    el.value = el.value.replace(/\s+/g,' ').trim();
+  else if (type==='reverse') el.value = el.value.split('').reverse().join('');
   analyzeText();
 }
-function copyText() {
-  navigator.clipboard.writeText(document.getElementById('textIn').value).catch(function(){});
-}
+function copyText() { navigator.clipboard.writeText(document.getElementById('textIn').value).catch(function(){}); }
 
 // ============================================================
 // CONVERTIDOR
@@ -682,51 +794,50 @@ function copyText() {
 var convData = {
   temp: {
     units: ['°C','°F','K'],
-    convert: function(v, f, t) {
-      var c = {'°C': v, '°F': (v-32)*5/9, 'K': v-273.15 }[f];
-      return {'°C': c, '°F': c*9/5+32, 'K': c+273.15 }[t];
+    convert: function(v,f,t) {
+      var c = (f==='°C') ? v : (f==='°F') ? (v-32)*5/9 : v-273.15;
+      return (t==='°C') ? c : (t==='°F') ? c*9/5+32 : c+273.15;
     }
   },
   len: {
     units: ['m','km','cm','mm','ft','in','mi'],
-    convert: function(v, f, t) {
-      var m = {m:1, km:1000, cm:0.01, mm:0.001, ft:0.3048, 'in':0.0254, mi:1609.34};
+    convert: function(v,f,t) {
+      var m = {m:1,km:1000,cm:0.01,mm:0.001,ft:0.3048,'in':0.0254,mi:1609.34};
       return v * m[f] / m[t];
     }
   },
   weight: {
     units: ['kg','g','lb','oz','t'],
-    convert: function(v, f, t) {
-      var m = {kg:1, g:0.001, lb:0.453592, oz:0.0283495, t:1000};
+    convert: function(v,f,t) {
+      var m = {kg:1,g:0.001,lb:0.453592,oz:0.0283495,t:1000};
       return v * m[f] / m[t];
     }
   },
   speed: {
     units: ['km/h','m/s','mph','nudos'],
-    convert: function(v, f, t) {
-      var m = {'km/h':1/3.6, 'm/s':1, 'mph':0.44704, 'nudos':0.514444};
+    convert: function(v,f,t) {
+      var m = {'km/h':1/3.6,'m/s':1,'mph':0.44704,'nudos':0.514444};
       return v * m[f] / m[t];
     }
   }
 };
-
 function updateConvUnits() {
   var cat   = document.getElementById('convCat').value;
   var units = convData[cat].units;
-  ['convFrom','convTo'].forEach(function(id, i) {
+  ['convFrom','convTo'].forEach(function(id,i) {
     var sel = document.getElementById(id);
-    sel.innerHTML = units.map(function(u){ return '<option value="' + u + '">' + u + '</option>'; }).join('');
-    if (i === 1 && units.length > 1) sel.selectedIndex = 1;
+    sel.innerHTML = units.map(function(u){ return '<option value="'+u+'">'+u+'</option>'; }).join('');
+    if (i===1 && units.length>1) sel.selectedIndex = 1;
   });
   doConvert();
 }
 function doConvert() {
-  var cat  = document.getElementById('convCat').value;
-  var v    = parseFloat(document.getElementById('convVal').value);
-  var f    = document.getElementById('convFrom').value;
-  var t    = document.getElementById('convTo').value;
+  var cat = document.getElementById('convCat').value;
+  var v   = parseFloat(document.getElementById('convVal').value);
+  var f   = document.getElementById('convFrom').value;
+  var t   = document.getElementById('convTo').value;
   if (isNaN(v)) return;
-  var res  = convData[cat].convert(v, f, t);
+  var res = convData[cat].convert(v,f,t);
   document.getElementById('convResult').textContent = parseFloat(res.toFixed(6)) + ' ' + t;
 }
 updateConvUnits();
@@ -741,47 +852,40 @@ function colorFromPicker() {
 }
 function colorFromHex() {
   var v = document.getElementById('hexIn').value.trim();
-  if (!v.startsWith('#')) v = '#' + v;
-  if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
-    document.getElementById('colorPick').value = v;
-    hexToRGB(v);
-  }
+  if (!v.startsWith('#')) v = '#'+v;
+  if (/^#[0-9A-Fa-f]{6}$/.test(v)) { document.getElementById('colorPick').value=v; hexToRGB(v); }
 }
 function hexToRGB(hex) {
-  var r = parseInt(hex.slice(1,3),16);
-  var g = parseInt(hex.slice(3,5),16);
-  var b = parseInt(hex.slice(5,7),16);
-  document.getElementById('rIn').value = r;
-  document.getElementById('gIn').value = g;
-  document.getElementById('bIn').value = b;
-  updatePreview(r, g, b, hex);
+  var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  document.getElementById('rIn').value=r;
+  document.getElementById('gIn').value=g;
+  document.getElementById('bIn').value=b;
+  updatePreview(r,g,b,hex);
 }
 function colorFromRGB() {
-  var r = Math.min(255, Math.max(0, parseInt(document.getElementById('rIn').value) || 0));
-  var g = Math.min(255, Math.max(0, parseInt(document.getElementById('gIn').value) || 0));
-  var b = Math.min(255, Math.max(0, parseInt(document.getElementById('bIn').value) || 0));
-  var hex = '#' + [r,g,b].map(function(x){ return x.toString(16).padStart(2,'0'); }).join('');
-  document.getElementById('hexIn').value  = hex;
-  document.getElementById('colorPick').value = hex;
-  updatePreview(r, g, b, hex);
+  var r=Math.min(255,Math.max(0,parseInt(document.getElementById('rIn').value)||0));
+  var g=Math.min(255,Math.max(0,parseInt(document.getElementById('gIn').value)||0));
+  var b=Math.min(255,Math.max(0,parseInt(document.getElementById('bIn').value)||0));
+  var hex='#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0');}).join('');
+  document.getElementById('hexIn').value=hex;
+  document.getElementById('colorPick').value=hex;
+  updatePreview(r,g,b,hex);
 }
 function rgbToHsl(r,g,b) {
-  r/=255; g/=255; b/=255;
-  var max=Math.max(r,g,b), min=Math.min(r,g,b), h, s, l=(max+min)/2;
-  if (max===min) { h=s=0; }
-  else {
-    var d = max - min;
-    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
-    if      (max===r) h=((g-b)/d+(g<b?6:0))/6;
-    else if (max===g) h=((b-r)/d+2)/6;
-    else              h=((r-g)/d+4)/6;
+  r/=255;g/=255;b/=255;
+  var max=Math.max(r,g,b),min=Math.min(r,g,b),h,s,l=(max+min)/2;
+  if(max===min){h=s=0;}else{
+    var d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+    if(max===r) h=((g-b)/d+(g<b?6:0))/6;
+    else if(max===g) h=((b-r)/d+2)/6;
+    else h=((r-g)/d+4)/6;
   }
-  return [Math.round(h*360), Math.round(s*100), Math.round(l*100)];
+  return [Math.round(h*360),Math.round(s*100),Math.round(l*100)];
 }
 function updatePreview(r,g,b,hex) {
-  document.getElementById('colorPreview').style.background = hex;
-  var hsl = rgbToHsl(r,g,b);
-  document.getElementById('colorInfo').textContent = 'HEX: ' + hex.toUpperCase() + '   |   RGB(' + r + ', ' + g + ', ' + b + ')   |   HSL(' + hsl[0] + '°, ' + hsl[1] + '%, ' + hsl[2] + '%)';
+  document.getElementById('colorPreview').style.background=hex;
+  var hsl=rgbToHsl(r,g,b);
+  document.getElementById('colorInfo').textContent='HEX: '+hex.toUpperCase()+'   |   RGB('+r+', '+g+', '+b+')   |   HSL('+hsl[0]+'°, '+hsl[1]+'%, '+hsl[2]+'%)';
 }
 colorFromPicker();
 
@@ -789,118 +893,84 @@ colorFromPicker();
 // CONTRASEÑAS
 // ============================================================
 function genPass() {
-  var len = parseInt(document.getElementById('passLen').value);
-  var pool = '';
-  if (document.getElementById('useUpper').checked) pool += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if (document.getElementById('useLower').checked) pool += 'abcdefghijklmnopqrstuvwxyz';
-  if (document.getElementById('useNums').checked)  pool += '0123456789';
-  if (document.getElementById('useSym').checked)   pool += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-  if (!pool) pool = 'abcdefghijklmnopqrstuvwxyz';
-  var pass = '';
-  for (var i=0; i<len; i++) pass += pool[Math.floor(Math.random()*pool.length)];
-  document.getElementById('passOut').textContent = pass;
-  var score = Math.min(100, Math.round((pool.length/80)*60 + (len/64)*40));
-  var meter = document.getElementById('passMeter');
-  var label = document.getElementById('passStrLabel');
-  meter.style.width = score + '%';
-  if      (score < 40) { meter.style.background = '#c0392b'; label.textContent = 'Débil';   }
-  else if (score < 70) { meter.style.background = '#b8860b'; label.textContent = 'Regular'; }
-  else                 { meter.style.background = '#2e7d4f'; label.textContent = 'Fuerte';  }
+  var len=parseInt(document.getElementById('passLen').value);
+  var pool='';
+  if(document.getElementById('useUpper').checked) pool+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if(document.getElementById('useLower').checked) pool+='abcdefghijklmnopqrstuvwxyz';
+  if(document.getElementById('useNums').checked)  pool+='0123456789';
+  if(document.getElementById('useSym').checked)   pool+='!@#$%^&*()_+-=[]{}|;:,.<>?';
+  if(!pool) pool='abcdefghijklmnopqrstuvwxyz';
+  var pass='';
+  for(var i=0;i<len;i++) pass+=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('passOut').textContent=pass;
+  var score=Math.min(100,Math.round((pool.length/80)*60+(len/64)*40));
+  var meter=document.getElementById('passMeter'), label=document.getElementById('passStrLabel');
+  meter.style.width=score+'%';
+  if(score<40){meter.style.background='#c0392b';label.textContent='Débil';}
+  else if(score<70){meter.style.background='#b8860b';label.textContent='Regular';}
+  else{meter.style.background='#2e7d4f';label.textContent='Fuerte';}
 }
-function copyPass() {
-  navigator.clipboard.writeText(document.getElementById('passOut').textContent).catch(function(){});
-}
-document.getElementById('useUpper').addEventListener('change', genPass);
-document.getElementById('useLower').addEventListener('change', genPass);
-document.getElementById('useNums').addEventListener('change',  genPass);
-document.getElementById('useSym').addEventListener('change',   genPass);
+function copyPass() { navigator.clipboard.writeText(document.getElementById('passOut').textContent).catch(function(){}); }
+document.getElementById('useUpper').addEventListener('change',genPass);
+document.getElementById('useLower').addEventListener('change',genPass);
+document.getElementById('useNums').addEventListener('change',genPass);
+document.getElementById('useSym').addEventListener('change',genPass);
 genPass();
 
 // ============================================================
 // IMC
 // ============================================================
 function calcBMI() {
-  var w = parseFloat(document.getElementById('bmiWeight').value);
-  var h = parseFloat(document.getElementById('bmiHeight').value) / 100;
-  if (!w || !h || h <= 0) return;
-  var bmi = parseFloat((w/(h*h)).toFixed(1));
-  var cat, color;
-  if      (bmi < 18.5) { cat = 'Bajo peso';       color = '#b8860b'; }
-  else if (bmi < 25)   { cat = 'Peso normal ✓';   color = '#2e7d4f'; }
-  else if (bmi < 30)   { cat = 'Sobrepeso';        color = '#b8860b'; }
-  else                 { cat = 'Obesidad';          color = '#c0392b'; }
-  var idealMin = (18.5*h*h).toFixed(1);
-  var idealMax = (24.9*h*h).toFixed(1);
-  document.getElementById('bmiResult').innerHTML =
-    '<div style="font-size:38px;font-weight:600;color:' + color + ';">' + bmi + '</div>' +
-    '<div style="font-size:15px;color:' + color + ';margin:4px 0 10px;">' + cat + '</div>' +
-    '<div style="font-size:13px;color:var(--muted);">Peso ideal para tu altura: ' + idealMin + ' – ' + idealMax + ' kg</div>';
+  var w=parseFloat(document.getElementById('bmiWeight').value);
+  var h=parseFloat(document.getElementById('bmiHeight').value)/100;
+  if(!w||!h||h<=0) return;
+  var bmi=parseFloat((w/(h*h)).toFixed(1));
+  var cat,color;
+  if(bmi<18.5){cat='Bajo peso';color='#b8860b';}
+  else if(bmi<25){cat='Peso normal ✓';color='#2e7d4f';}
+  else if(bmi<30){cat='Sobrepeso';color='#b8860b';}
+  else{cat='Obesidad';color='#c0392b';}
+  var idealMin=(18.5*h*h).toFixed(1), idealMax=(24.9*h*h).toFixed(1);
+  document.getElementById('bmiResult').innerHTML=
+    '<div style="font-size:38px;font-weight:600;color:'+color+';">'+bmi+'</div>'+
+    '<div style="font-size:15px;color:'+color+';margin:4px 0 10px;">'+cat+'</div>'+
+    '<div style="font-size:13px;color:var(--muted);">Peso ideal para tu altura: '+idealMin+' – '+idealMax+' kg</div>';
 }
 calcBMI();
 
 // ============================================================
-// BUSCADOR AI
+// BUSCADOR MÚLTIPLE — gratis, sin cuenta, sin límites
 // ============================================================
-function doAISearch() {
-  var apiKey  = document.getElementById('apiKey').value.trim();
-  var query   = document.getElementById('searchQuery').value.trim();
-  var results = document.getElementById('searchResults');
-  var btn     = document.getElementById('searchBtn');
+var SEARCH_URLS = {
+  google:       'https://www.google.com/search?q=',
+  youtube:      'https://www.youtube.com/results?search_query=',
+  wikipedia:    'https://es.wikipedia.org/w/index.php?search=',
+  github:       'https://github.com/search?q=',
+  mercadolibre: 'https://listado.mercadolibre.com.ar/',
+  maps:         'https://www.google.com/maps/search/'
+};
 
-  if (!apiKey) { results.innerHTML = '<div class="card" style="color:var(--danger)">Por favor ingresá tu API Key primero.</div>'; return; }
-  if (!query)  { results.innerHTML = '<div class="card" style="color:var(--danger)">Escribí algo para buscar.</div>'; return; }
+function getQuery() {
+  return document.getElementById('searchQuery').value.trim();
+}
 
-  btn.disabled    = true;
-  btn.innerHTML   = '<span class="spinner"></span> Buscando...';
-  results.innerHTML = '<div class="card" style="text-align:center;color:var(--muted);font-size:14px;">🤖 La IA está buscando las mejores páginas...</div>';
+function openSearch(engine) {
+  var q = getQuery();
+  if (!q) { document.getElementById('searchQuery').focus(); return; }
+  window.open(SEARCH_URLS[engine] + encodeURIComponent(q), '_blank');
+}
 
-  var prompt = 'El usuario busca páginas web sobre: "' + query + '"\n\n' +
-    'Recomendá las 4 mejores páginas web reales y conocidas para este tema.\n' +
-    'Devolvé SOLO un JSON válido, sin texto adicional ni markdown:\n' +
-    '{"results":[{"title":"Nombre del sitio","url":"https://url-real.com","description":"Por qué es útil esta página (2 oraciones cortas)"}]}\n\n' +
-    'Reglas: solo URLs reales y conocidas, sitios seguros sin spam, preferí español si aplica, el primero debe ser el mejor.';
+function doSearch() {
+  var q = getQuery();
+  if (!q) { document.getElementById('searchQuery').focus(); return; }
+  window.open(SEARCH_URLS['google']    + encodeURIComponent(q), '_blank');
+  window.open(SEARCH_URLS['youtube']   + encodeURIComponent(q), '_blank');
+  window.open(SEARCH_URLS['wikipedia'] + encodeURIComponent(q), '_blank');
+}
 
-  fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      messages: [{ role: 'user', content: prompt }]
-    })
-  })
-  .then(function(r){
-    if (!r.ok) return r.json().then(function(e){ throw new Error(e.error && e.error.message || 'Error de API'); });
-    return r.json();
-  })
-  .then(function(data){
-    var text   = data.content[0].text.trim().replace(/```json|```/g,'').trim();
-    var parsed = JSON.parse(text);
-    var list   = parsed.results || [];
-    if (!list.length) throw new Error('Sin resultados');
-    results.innerHTML =
-      '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">🤖 ' + list.length + ' resultados para "<b>' + query + '</b>"</div>' +
-      list.map(function(r, i){
-        return '<a href="' + r.url + '" target="_blank" rel="noopener noreferrer" class="ai-card' + (i===0?' best':'') + '">' +
-          (i===0 ? '<span class="best-badge">⭐ Mejor resultado</span>' : '') +
-          '<div class="ai-title">' + r.title + '</div>' +
-          '<div class="ai-url">' + r.url + '</div>' +
-          '<div class="ai-desc">' + r.description + '</div>' +
-          '</a>';
-      }).join('');
-  })
-  .catch(function(e){
-    results.innerHTML = '<div class="card" style="color:var(--danger)">Error: ' + e.message + '. Verificá tu API Key.</div>';
-  })
-  .finally(function(){
-    btn.disabled   = false;
-    btn.textContent = '🔍 Buscar con AI';
-  });
+function quickSearch(term) {
+  document.getElementById('searchQuery').value = term;
+  window.open(SEARCH_URLS['google'] + encodeURIComponent(term), '_blank');
 }
 </script>
 </body>
